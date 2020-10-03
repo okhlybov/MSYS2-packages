@@ -1,0 +1,23 @@
+# Contributor: Oleg A. Khlybov <fougas@mail.ru>
+
+pkgname=bats-core
+pkgver=1.2.1
+pkgrel=1
+pkgdesc="BASH Automated Test Suite core package"
+arch=('any')
+url="https://github.com/bats-core/bats-core"
+license=('MIT')
+depends=()
+source=(${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
+sha256sums=('91c49b1fe6f0656c46491929ed728f8dfa9a96df0cce294963e8c6082bff87a2')
+noextract=(${pkgname}-${pkgver}.tar.gz)
+
+prepare() {
+  [[ -d ${pkgname}-${pkgver} ]] && rm -rf ${pkgname}-${pkgver}
+  tar -xzvf ${pkgname}-${pkgver}.tar.gz -C ${srcdir} || true
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  ./install.sh "${pkgdir}/usr"
+}
